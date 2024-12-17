@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <link rel="stylesheet" href="../../styles/user/productdetail.css">
+    <link rel="stylesheet" href="../../styles/components/navigation.css">
+    <link rel="stylesheet" href="../../styles/globa.css">
+    <!-- <link rel="stylesheet" href="style/detailShoes.css">
+    <link rel="stylesheet" href="style/popup.css"> -->
+
+
+</head>
+
+<body>
+    <header>
+
+        <nav></nav>
+        <div class="under-navigation">
+            <div class="container ">
+                <div class="row">
+                    <div class="col-md-1">
+
+                    </div>
+                    <br>
+                    <div class="col-md-10 py-3">
+                        <div class="title">
+                            <h3 class="fw-bold">Chi tiết sản phẩm</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container content-detail ">
+                    <div class="row">
+                        <div class="col-12 col-md-1">
+                            <div class="thumbnail-container mt-5" id="thumbnail-container">
+                                <!-- <div class="thumbnail-item">
+                                    <img style="object-fit: contain;" src="assets/shoeMens/cocao.png" alt=""
+                                        class="img-fluid">
+                                </div>
+                                <div class="thumbnail-item">
+                                    <img style="object-fit: contain;" src="assets/detail/yellow/1.png" alt=""
+                                        class="img-fluid">
+                                </div>
+                                <div class="thumbnail-item">
+                                    <img style="object-fit: contain;" src="assets/detail/yellow/2.png" alt=""
+                                        class="img-fluid">
+                                </div>
+                                <div class="thumbnail-item">
+                                    <img style="object-fit: contain;" src="assets/detail/yellow/3.png" alt=""
+                                        class="img-fluid">
+                                </div>
+                                <div class="thumbnail-item">
+                                    <img style="object-fit: contain;" src="assets/detail/yellow/4.png" alt=""
+                                        class="img-fluid">
+                                </div> -->
+                                <!-- <div id="productThumbnails"></div> -->
+                                <div class="color-thumbnails" id="thumbnailsItem"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-5 d-flex justify-content-center align-items-center img-detail ">
+                            <img id="img_main" alt="" class="img-fluid">
+                        </div>
+
+                        <div class="col-12 col-md-5 d-flex justify-content-center position-relative">
+                            <div class="info  ms-3">
+                                <div id="productDetails" class="product-container"></div>
+
+                                <div class="row mb-5 ">
+                                    <!-- Nút tăng giảm số lượng -->
+                                    <div class="col-auto">
+                                        <span id="quantity" class="fw-bold"></span>
+
+                                    </div>
+
+                                    <!-- Nút đặt hàng -->
+
+                                </div>
+
+                                <div class="row mb-5">
+                                    <div class="col-6 mb-2 d-flex align-items-center">
+                                        <i class="fa-solid fa-rotate me-2 icon-bordered"></i>
+                                        <span class="policy">60 ngày đổi trả vì bất kỳ lý do gì</span>
+                                    </div>
+
+                                    <div class="col-6 mb-2 d-flex align-items-center">
+                                        <i class="fa-solid fa-medal me-2 icon-bordered"></i>
+                                        <span class="policy">Cam kết đúng chất liệu, màu sắc</span>
+                                    </div>
+
+                                    <div class="col-6 mb-2 d-flex align-items-center mt-3">
+                                        <i class="fa-solid fa-phone me-2 icon-bordered"></i>
+                                        <span class="policy">Hotline 113 hỗ trợ từ 8h30 - 22h mỗi ngày
+                                        </span>
+                                    </div>
+
+                                    <div class="col-6 mb-2 d-flex align-items-center mt-3">
+                                        <i class="fa-solid fa-street-view me-2 icon-bordered"></i>
+                                        <span class="policy">Đến tận nơi nhận hàng trả, hoàn tiền trong 24h</span>
+                                    </div>
+                                </div>
+
+
+
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container detail mt-5">
+                    <div class="title">
+                        <h1 class="fw-bold">Chi tiết sản phẩm</h1>
+                    </div>
+                    <div class="mt-5">
+                        <span>Được thiết kế tinh xảo với sự kết hợp hoàn hảo giữa chất liệu cao cấp và công nghệ hiện
+                            đại,
+                            sản phẩm
+                            của chúng tôi mang đến sự trải nghiệm tối ưu cho người sử dụng.
+                            Mỗi chi tiết đều được chế tác tỉ mỉ, đảm bảo độ bền bỉ vượt trội và vẻ ngoài tinh tế, sang
+                            trọng. Vật liệu
+                            sử dụng không chỉ đảm bảo sự thoải mái mà còn có khả năng chống mài mòn,
+                            giúp sản phẩm luôn giữ được vẻ mới lâu dài. Với cam kết về chất lượng,
+                            sản phẩm của chúng tôi là lựa chọn hoàn hảo cho những ai tìm kiếm sự kết hợp giữa thẩm mỹ và
+                            công
+                            năng</span>
+                    </div>
+
+                    <div class="mt-5 characteristic">
+                        <span>
+                            <h3><strong>1. Thiết Kế Phong Cách </strong></h3>Giày cổ cao giúp bảo vệ và hỗ trợ cổ chân,
+                            mang
+                            đến sự
+                            thoải mái khi vận động. Thiết kế dáng ôm nhẹ, làm nổi bật phong cách thể thao và năng động.
+                            <br>
+
+                            <h3><strong>2. Sắc Vàng Ấn Tượng</strong></h3> Màu vàng luôn là biểu tượng của sự tự tin và
+                            sáng
+                            tạo. Điểm
+                            sắc vàng trên đôi giày không chỉ bắt mắt mà còn thể hiện cá tính, tạo sự chú ý mỗi khi bước
+                            đi.
+                            <br>
+
+                            <h3><strong>3. Chất Liệu Cao Cấp</strong></h3> Sản phẩm được làm từ chất liệu da hoặc vải
+                            bền
+                            bỉ, đảm bảo độ
+                            êm ái cho bàn chân suốt cả ngày dài. Đế giày chống trơn trượt, tăng độ bám chắc chắn trên
+                            mọi
+                            địa hình. <br>
+
+                            <h3><strong>4. Dễ Phối Đồ</strong></h3> Với màu sắc nổi bật nhưng vẫn thanh lịch, giày cổ
+                            cao
+                            màu vàng dễ
+                            dàng phối cùng quần jeans, jogger, hoặc thậm chí cả váy ngắn cho phong cách casual.
+                        </span>
+                    </div>
+
+                    <div class="title mt-5">
+                        <h1 class="fw-bold">Vì sao nên chọn ?</h1>
+                    </div>
+                    <div class="mt-5 characteristic">
+                        <span>
+                            Giày cổ cao màu vàng không chỉ là một phụ kiện thời trang mà còn giúp bạn tạo dấu ấn cá
+                            nhân.
+                            Mẫu giày này
+                            phù hợp với mọi độ tuổi và phong cách, từ năng động trẻ trung đến cá tính sành điệu. <br>
+
+                            Hãy đến ngay Silk Road để trải nghiệm và sở hữu đôi giày độc đáo này!
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+    </header>
+
+
+    <footer>
+    </footer>
+
+</body>
+<script src="../../scripts/users/productdetail.js"></script>
+<script src="../../scripts/components/navigation.js"></script>
+<!-- <script src="component/footer.js"></script> -->
+<!-- <script src="script/detailShoes.js"></script> -->
+<!-- <script src="component/popup.js"></script> -->
+
+
+</html>

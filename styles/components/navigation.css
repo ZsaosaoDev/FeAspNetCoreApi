@@ -1,0 +1,278 @@
+:root {
+    --while-color: #fafafc;
+    --black-white: #f5f5f7;
+}
+
+#shapeHoldPosition {
+    height: 50px;
+
+}
+
+#navigation {
+    position: fixed;
+    z-index: 2000;
+    padding: 12px 0;
+    top: 0;
+}
+
+.navigation,
+i {
+    font-size: 14px;
+    font-weight: 400;
+    margin-left: 10px;
+}
+
+
+.main-bg-color {
+    background-color: var(--while-color);
+}
+
+.flex-align-items-center {
+    display: flex;
+    align-items: center;
+}
+
+.flex-direction-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.content-when-hover {
+    position: fixed;
+    padding: 10px 0 60px 0;
+    display: none;
+    top: 36px;
+}
+
+.content-when-hover-a {
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.content-when-hover-a-first {
+    font-size: 20px;
+    font-weight: 550;
+    text-decoration: none;
+}
+
+.content-when-hover-p {
+    font-size: 12px;
+    color: rgb(119, 119, 119);
+}
+
+@keyframes content-when-hover-animation {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes content-when-endHover-animation {
+    from {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-60px);
+    }
+}
+
+@keyframes opacity {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0.5;
+    }
+}
+
+@keyframes endOpacity {
+    from {
+        opacity: 0.5;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+.titleHeader,
+.titleSubHeader {
+    font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: 40px;
+    font-weight: 600;
+    letter-spacing: -.003em;
+    line-height: 1.0834933333;
+}
+
+.titleHeaderMin,
+.titleSubHeaderMin {
+    font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: .007em;
+    line-height: 1.1428571429;
+}
+
+@media (max-width: 991px) {
+    #list-page {
+        display: none;
+    }
+
+
+}
+
+
+
+
+
+.holiday {
+    position: fixed;
+    z-index: 500;
+    width: 100%;
+    top: 50px;
+    left: 0;
+    height: 20px;
+}
+
+.shape {
+    position: absolute;
+    filter: blur(20px);
+    position: absolute;
+    border-radius: 50%;
+}
+
+.holiday-yellow {
+    width: 40vw;
+    height: 50px;
+    background: #fd8c1f;
+    animation: yellowAnimation 1.5s ease-out forwards .5s;
+    top: -75px;
+    right: 10vw;
+}
+
+.holiday-pinkOne {
+    width: 40vw;
+    height: 150px;
+    background: #ff3f98;
+    top: -200px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    opacity: .5;
+    animation: pinkOneAnimation 2s ease-in-out forwards;
+}
+
+.holiday-pinkTwo {
+    width: 30vw;
+    height: 150px;
+    background: #e9a5ff;
+    top: -200px;
+    left: -25%;
+    right: 0;
+    margin: 0 auto;
+    animation: pinkTwoAnimation 1.2s ease-in-out forwards;
+}
+
+.holiday-blue {
+    width: 60vw;
+    height: 75px;
+    top: -100px;
+    left: 0;
+    background: #4186fd;
+    opacity: .5;
+    animation: blueAnimation 1s ease .2s forwards;
+}
+
+
+@keyframes yellowAnimation {
+    0% {
+        top: -75px;
+        right: 10vw;
+    }
+
+    50% {
+        top: -30px;
+    }
+
+    100% {
+        top: -30px;
+        right: 0;
+    }
+}
+
+@keyframes pinkOneAnimation {
+    0% {
+        top: -200px;
+        transform: scaleX(50%) translateX(0);
+    }
+
+    25% {
+        top: -110px;
+        transform: scaleX(50%) translateX(0);
+    }
+
+    50% {
+        top: -120px;
+        transform: scaleX(225%) translateX(10%);
+    }
+
+    100% {
+        top: -135px;
+        background: #e44cbb;
+        transform: scaleX(225%) translateX(0);
+    }
+
+}
+
+@keyframes pinkTwoAnimation {
+    0% {
+        top: -200px;
+        transform: scaleX(50%) translateX(0);
+    }
+
+    25% {
+        top: -120px;
+        transform: scaleX(70%) translateX(-10%);
+    }
+
+    50% {
+        top: -130px;
+        transform: scaleX(225%) translateX(10%);
+    }
+
+    100% {
+        top: -135px;
+        background: #f55be4;
+        transform: scaleX(225%) translateX(0);
+        left: 0;
+    }
+
+}
+
+@keyframes blueAnimation {
+    0% {
+        top: -100px;
+        transform: translateX(0);
+    }
+
+    50% {
+        top: -50px;
+        transform: translateX(-15%);
+    }
+
+    100% {
+        top: -50px;
+        background: #019ffb;
+        transform: translateX(0);
+    }
+}

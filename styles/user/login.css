@@ -1,0 +1,135 @@
+#titleLogin {
+    font-size: 28px;
+    font-weight: bold;
+    color: #494949;
+    margin-bottom: 20px;
+}
+
+#loginForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Container styling */
+.input-container {
+    width: 70%;
+
+}
+
+#inputName i {
+    position: absolute;
+    right: 20px;
+    color: #999;
+    font-size: 22px;
+    top: calc(50% - 10px);
+    transform: translateX(-50%);
+}
+
+
+/* Input field styling */
+.floating-input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+/* Label styling */
+.floating-label {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    color: #999;
+    font-size: 16px;
+    pointer-events: none;
+    transform: translateY(-50%);
+    transition: all 0.3s ease;
+}
+
+/* Input focus and placeholder-shown effect */
+.floating-input:focus {
+    border-color: #007bff;
+}
+
+.floating-input:focus~.floating-label,
+.floating-input:not(:placeholder-shown)~.floating-label {
+    top: 0;
+    left: 20px;
+    font-size: 12px;
+    color: #007bff;
+    transform: translateY(-0%);
+}
+
+.fa-circle-right {
+    position: relative;
+    /* Needed to make 'top' positioning work */
+    transition: top 0.3s ease;
+    /* Smooth transition for the top property */
+}
+
+.links {
+    font-size: 15px;
+}
+
+#btnLogin {
+    padding: 10px 10px 10px 5px;
+    width: 70%;
+    display: none;
+    animation: btnLogin 1s;
+    height: 50px;
+    overflow-y: hidden;
+
+}
+
+/* #alterClick {
+    display: none;
+    animation: alterClick 3s;
+} */
+
+@keyframes btnLogin {
+    from {
+        opacity: 0;
+        width: 0%;
+
+    }
+
+    to {
+        opacity: 1;
+        width: 70%;
+
+    }
+
+}
+
+@keyframes alterClick {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+
+    }
+
+}
+
+#error {
+    width: 70%;
+    display: flex;
+    align-items: start;
+    margin-bottom: 10px;
+    position: relative;
+    height: 20px;
+}
+
+#error span {
+    position: absolute;
+    font-size: 16px;
+    top: 0;
+    left: 0;
+
+}

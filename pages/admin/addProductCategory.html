@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Product Category</title>
+    <style>
+        /* CSS cơ bản */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .message {
+            margin-top: 15px;
+            text-align: center;
+            color: green;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-container">
+        <h2>Add Product Category</h2>
+        <form id="categoryForm">
+            <label for="name">Category Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter category name" required>
+
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" rows="3" placeholder="Enter description" required></textarea>
+
+            <label for="picture">Upload Picture:</label>
+            <input type="file" id="picture" name="picture" accept="image/*" required>
+
+            <button type="submit">Submit</button>
+            <div class="message" id="message"></div>
+        </form>
+    </div>
+
+    <script>
+        // Hàm chuyển file thành base64
+        function toBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result.split(',')[1]); // Lấy phần base64 sau dấu phẩy
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // Xử lý form gửi dữ liệu
+        document.getElementById('categoryForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const description = document.getElementById('description').value;
+            const pictureFile = document.getElementById('picture').files[0];
+            const messageEl = document.getElementById('message');
+
+            try {
+                // Chuyển file ảnh sang Base64
+                const pictureBase64 = await toBase64(pictureFile);
+
+                // Đóng gói dữ liệu JSON
+                const data = {
+                    Name: name,
+                    Description: description,
+                    Picture: pictureBase64
+                };
+
+                // Gửi dữ liệu đến API
+                const response = await fetch('https://localhost:7284/api/addCategory', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    messageEl.textContent = 'Category added successfully!';
+                    messageEl.style.color = 'green';
+                } else {
+                    const error = await response.json();
+                    messageEl.textContent = `Error: ${error.Error || 'Something went wrong'}`;
+                    messageEl.style.color = 'red';
+                }
+            } catch (error) {
+                messageEl.textContent = `Error: ${error.message}`;
+                messageEl.style.color = 'red';
+            }
+        });
+    </script>
+</body>
+
+</html>
