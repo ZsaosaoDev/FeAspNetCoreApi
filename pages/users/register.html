@@ -25,20 +25,19 @@
             <div style="padding-top: 70px;" class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <span class="titleHeader">Đăng nhập để thanh toán nhanh hơn.</span>
+                        <span class="titleHeader">Đăng kí để thanh toán nhanh hơn.</span>
                     </div>
                 </div>
             </div>
             <div class="row justify-content-center" style="padding-top: 70px;">
                 <div class="col-md-6">
                     <div class="login-container text-center p-4 ">
-                        <h1 id="titleLogin">Đăng nhập vào Silk Road</h1>
-                        <div id="loginForm">
+                        <h1 id="titleLogin">Đăng kí tài khoản của Silk Road</h1>
+                        <div id="loginForm" action="loginWithAuthCode.html">
 
                             <div id="inputName" class="input-container">
-                                <input type="text" id="nameLogin" class="floating-input" placeholder=" " required
-                                    title="Please enter a valid email address">
-                                <label for="nameLogin" class="floating-label">Vui lòng điền email của bạn</label>
+                                <input type="text" id="nameLogin" class="floating-input" placeholder=" " required>
+                                <label for="name" class="floating-label">Vui lòng điền tài khoản của bạn</label>
                                 <i id="icon" class="fa-solid fa-circle-right"></i>
                             </div>
                             <div style="display: none;" id="inputPass" class="input-container">
@@ -51,29 +50,10 @@
                                 <span id="errorLogin"> </span>
                             </div>
 
+
                             <button id="btnLogin" class="btn btn-primary">
-                                Đăng nhập
+                                Đăng kí
                             </button>
-
-
-
-
-                            <div id="alterClick">
-                                <div style="padding: 0;" class="form-check my-3">
-                                    <input type="checkbox" class="checkbox">
-                                    <label class="form-check-label" for="remember">Lưu tôi</label>
-                                </div>
-                            </div>
-
-                            <div class="links">
-                                <a style="color: #06c;" href="forgetPass.html">Bạn đã quên mật khẩu ?</a>
-                                <a href="register.html">Bạn không có Tài khoản?
-                                    <span style="color: #06c;">Tạo tài khoản của bạn ngay
-                                        bây giờ.
-                                    </span>
-                                </a>
-                            </div>
-
 
                         </div>
                     </div>
@@ -83,16 +63,12 @@
     </header>
     <footer>
     </footer>
-    <script src="../../scripts/components/navigation.js"></script>
-    <script src="../../scripts/components/footer.js"></script>
-    <script src="../../scripts/components/log.js"></script>
-    <script src="../../scripts/users/login.js" type="module"></script>
-
-
-
-
-
 
 </body>
+<script src="../../scripts/components/navigation.js"></script>
+<script src="../../scripts/components/log.js"></script>
+<script src="../../scripts/components/footer.js"></script>
+<script type="module" src="../../scripts/users/register.js"></script>
+
 
 </html>

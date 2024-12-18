@@ -4,13 +4,6 @@
 }
 
 
-html,
-body {
-    overflow-x: hidden;
-
-}
-
-
 a {
 
     color: black;
@@ -63,7 +56,7 @@ a:hover {
 .input-container {
     width: 100%;
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     padding: 10px 20px 0px 20px;
     border: 1px solid #e0e0e0;
     border-radius: 10px;
@@ -124,4 +117,36 @@ a:hover {
     /* Needed to make 'top' positioning work */
     transition: top 0.3s ease;
     /* Smooth transition for the top property */
+}
+
+/* ------------  footer  ---------*/
+html,
+body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+header {
+    flex: 1;
+    padding-bottom: 20px;
+}
+
+footer {
+    padding-bottom: 18px;
+    background-color: rgb(245 245 247);
+    font-size: 12px;
+    line-height: 1.3333733333;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+}
+
+.header-footer {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 15px;
+}
+
+.content-footer {
+    padding: 12px 0;
 }

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .product-row {
+            background-color: #f0f8ff;
+        }
+
+        .size-row {
+            background-color: #f9f9f9;
+        }
+
+        .size-row td {
+            font-style: italic;
+        }
+
+        .no-data {
+            text-align: center;
+            font-style: italic;
+            color: #888;
+        }
+
+        .quantity {
+            font-weight: bold;
+            color: green;
+        }
+
+        .stock {
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Product List with Selected Sizes</h1>
+
+    <div id="productTableContainer">
+        <table id="productTable">
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Discount</th>
+                    <th>Size</th>
+                    <th>Stock</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data will be dynamically populated here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Fetch product data from the API and populate the table
+        async function fetchProductData() {
+            try {
+                const response = await fetch("https://localhost:7284/GetProductsWithSelectedColors", {
+                    method: "GET",
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
+                    },
+                    credentials: "include", // Include cookies if needed
+                });
+
+                if (!response.ok) {
+                    throw new Error("Failed to fetch products.");
+                }
+
+                const products = await response.json();
+                console.log("Products:", products);
+                displayProductData(products);
+            } catch (error) {
+                console.error("Error fetching product data:", error);
+                displayErrorMessage();
+            }
+        }
+
+        // Display error message in case of failure
+        function displayErrorMessage() {
+            const tableBody = document.querySelector("#productTable tbody");
+            tableBody.innerHTML = `<tr><td colspan="5" class="no-data">Failed to load products. Please try again later.</td></tr>`;
+        }
+
+        // Render product data in the table
+        function displayProductData(products) {
+            const tableBody = document.querySelector("#productTable tbody");
+            tableBody.innerHTML = ""; // Clear existing rows
+
+            if (!products || products.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="5" class="no-data">No products found.</td></tr>`;
+                return;
+            }
+
+            products.forEach(product => {
+                // Add main product row
+                const productRow = document.createElement("tr");
+                productRow.classList.add("product-row");
+                productRow.innerHTML = `
+                    <td>${product.Name}</td>
+                    <td>${product.Price}</td>
+                    <td>${product.Discount}</td>
+                    <td colspan="2"></td> <!-- Placeholder for size rows -->
+                `;
+                tableBody.appendChild(productRow);
+
+                // Add size rows if available
+                if (Array.isArray(product.ColorDtos) && product.ColorDtos.length > 0) {
+                    product.ColorDtos.forEach(color => {
+                        if (Array.isArray(color.SizeDtos) && color.SizeDtos.length > 0) {
+                            color.SizeDtos.forEach(size => {
+                                const sizeRow = document.createElement("tr");
+                                sizeRow.classList.add("size-row");
+                                sizeRow.innerHTML = `
+                                    <td colspan="3"></td>
+                                    <td>${size.Name}</td>
+                                    <td>${size.Stock}</td>
+                                `;
+                                tableBody.appendChild(sizeRow);
+                            });
+                        } else {
+                            const sizeRow = document.createElement("tr");
+                            sizeRow.classList.add("size-row");
+                            sizeRow.innerHTML = `<td colspan="5" class="no-data">No sizes available for this product.</td>`;
+                            tableBody.appendChild(sizeRow);
+                        }
+                    });
+                } else {
+                    const sizeRow = document.createElement("tr");
+                    sizeRow.classList.add("size-row");
+                    sizeRow.innerHTML = `<td colspan="5" class="no-data">No colors or sizes available for this product.</td>`;
+                    tableBody.appendChild(sizeRow);
+                }
+            });
+        }
+
+        // Load products on page load
+        window.onload = fetchProductData;
+    </script>
+</body>
+
+</html>
