@@ -12,59 +12,51 @@
             margin: 20px;
         }
 
-        .product {
+        h1 {
+            text-align: center;
+        }
+
+        .table-container {
+            margin-bottom: 20px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            margin: 10px 0;
             padding: 10px;
         }
 
-        .product-title {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 10px;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
         }
 
-        .product-info {
-            margin-bottom: 10px;
+        table th,
+        table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
         }
 
-        .color {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 20px;
+        table th {
+            background-color: #f4f4f4;
         }
 
         .color-box {
             width: 30px;
             height: 30px;
-            margin-right: 10px;
-            border-radius: 3px;
+            display: inline-block;
             border: 1px solid #000;
+            border-radius: 3px;
+            margin-right: 10px;
         }
 
-        .color-details {
-            margin-left: 10px;
-        }
-
-        .color-name {
-            font-size: 16px;
-        }
-
-        .color-image {
-            margin-top: 10px;
-        }
-
-        .color-image img {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+        .no-data {
+            font-size: 18px;
+            color: #666;
+            text-align: center;
+            margin-top: 20px;
         }
 
         .size-controls {
-            margin-top: 10px;
             display: flex;
             align-items: center;
         }
@@ -83,11 +75,12 @@
             font-size: 16px;
         }
 
-        .no-data {
-            font-size: 18px;
-            color: #666;
-            text-align: center;
-            margin-top: 20px;
+        img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border: 1px solid #ddd;
+            border-radius: 5px;
         }
     </style>
 </head>
@@ -130,7 +123,7 @@
                         "Content-Type": "application/json",
                     },
                     credentials: "include",
-                    body: JSON.stringify({ SizeId: sizeId, Quantity: quantity }), // Match the backend parameter names
+                    body: JSON.stringify({ SizeId: sizeId, Quantity: quantity }),
                 });
 
                 if (!response.ok) {
@@ -159,116 +152,50 @@
 
             // Iterate through products and display details
             products.forEach((product) => {
-                const productDiv = document.createElement("div");
-                productDiv.classList.add("product");
-
-                // Add product title
-                const title = document.createElement("div");
-                title.classList.add("product-title");
-                title.textContent = product.name;
-                productDiv.appendChild(title);
-
-                // Add product info (price and discount)
-                const infoDiv = document.createElement("div");
-                infoDiv.classList.add("product-info");
-                infoDiv.innerHTML = `
-                    <strong>Price:</strong> $${product.price} <br>
-                    <strong>Discount:</strong> ${product.discount}% <br>
-                `;
-                productDiv.appendChild(infoDiv);
-
-                // Filter and display colors with isPreviouslySelected: true
                 const selectedColors = product.colorDtos.filter(color => color.isPreviouslySelected);
 
                 if (selectedColors.length) {
                     selectedColors.forEach((color) => {
-                        const colorDiv = document.createElement("div");
-                        colorDiv.classList.add("color");
+                        const tableContainer = document.createElement("div");
+                        tableContainer.classList.add("table-container");
 
-                        const colorBox = document.createElement("div");
-                        colorBox.classList.add("color-box");
-                        colorBox.style.backgroundColor = color.hexCode;
+                        tableContainer.innerHTML = `
+                            <h2>${product.name}</h2>
+                            <p><strong>Price:</strong> $${product.price} | <strong>Discount:</strong> ${product.discount}%</p>
+                            <div><span class="color-box" style="background-color: ${color.hexCode}"></span><strong>${color.name} (Hex: ${color.hexCode})</strong></div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Size</th>
+                                        <th>Stock</th>
+                                        <th>Quantity</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${color.sizeDtos.map(size => `
+                                        <tr>
+                                            <td>${size.name}</td>
+                                            <td>${size.stock}</td>
+                                            <td>
+                                                <div class="size-controls">
+                                                    <button onclick="updateQuantity(${size.sizeDtoId}, Math.max(${size.quantityOrder} - 1, 0))">-</button>
+                                                    <input type="number" value="${size.quantityOrder}" readonly />
+                                                    <button onclick="updateQuantity(${size.sizeDtoId}, ${size.quantityOrder} + 1)">+</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    `).join("")}
+                                </tbody>
+                            </table>
+                            <div>
+                                <strong>Image:</strong><br>
+                                ${color.imageDtos.length > 0 ? `<img src="data:image/jpeg;base64,${color.imageDtos[0].data}" alt="${color.name} Image" />` : "No image available."}
+                            </div>
+                        `;
 
-                        const colorDetails = document.createElement("div");
-                        colorDetails.classList.add("color-details");
-
-                        // Add color name and hex code
-                        const colorName = document.createElement("div");
-                        colorName.classList.add("color-name");
-                        colorName.textContent = `${color.name} (Hex: ${color.hexCode})`;
-
-                        // Add size details
-                        const sizeDetails = document.createElement("div");
-                        sizeDetails.innerHTML = `<strong>Sizes:</strong>`;
-
-                        color.sizeDtos.forEach((size) => {
-                            console.log("Size:", size);
-                            const sizeDiv = document.createElement("div");
-
-                            // Size information
-                            sizeDiv.innerHTML = `<strong>${size.name}</strong> (Stock: ${size.stock})`;
-
-                            // Quantity controls
-                            const controls = document.createElement("div");
-                            controls.classList.add("size-controls");
-
-                            const minusButton = document.createElement("button");
-                            minusButton.textContent = "-";
-                            minusButton.onclick = () => {
-                                if (size.quantityOrder > 0) {
-                                    size.quantityOrder--;
-                                    quantityInput.value = size.quantityOrder;
-                                    updateQuantity(size.sizeDtoId, size.quantityOrder);
-                                }
-                            };
-
-                            const quantityInput = document.createElement("input");
-                            quantityInput.type = "number";
-                            quantityInput.value = size.quantityOrder;
-                            quantityInput.readOnly = true;
-
-                            const plusButton = document.createElement("button");
-                            plusButton.textContent = "+";
-                            plusButton.onclick = () => {
-                                size.quantityOrder++;
-                                quantityInput.value = size.quantityOrder;
-                                updateQuantity(size.sizeDtoId, size.quantityOrder);
-                            };
-
-                            controls.appendChild(minusButton);
-                            controls.appendChild(quantityInput);
-                            controls.appendChild(plusButton);
-
-                            sizeDiv.appendChild(controls);
-                            sizeDetails.appendChild(sizeDiv);
-                        });
-
-                        // Add color image
-                        const colorImageDiv = document.createElement("div");
-                        colorImageDiv.classList.add("color-image");
-
-                        // Use the first image of the color
-                        if (color.imageDtos.length) {
-                            const colorImage = document.createElement("img");
-                            colorImage.src = `data:image/jpeg;base64,${color.imageDtos[0].data}`; // Render first image
-                            colorImage.alt = `${color.name} Image`;
-                            colorImageDiv.appendChild(colorImage);
-                        } else {
-                            colorImageDiv.textContent = "No image available.";
-                        }
-
-                        colorDetails.appendChild(colorName);
-                        colorDetails.appendChild(sizeDetails);
-                        colorDetails.appendChild(colorImageDiv);
-
-                        colorDiv.appendChild(colorBox);
-                        colorDiv.appendChild(colorDetails);
-
-                        productDiv.appendChild(colorDiv);
+                        container.appendChild(tableContainer);
                     });
                 }
-
-                container.appendChild(productDiv);
             });
         }
 
