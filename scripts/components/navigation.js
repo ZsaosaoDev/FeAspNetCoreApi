@@ -127,12 +127,12 @@ const renderNavigation = () => {
                         <span class="navigation" id="shoe"><a href="shoes.html">Giày</a></span>
                         <span class="navigation" id="sandal"><a href="#">Dép</a></span> 
                         <span class="navigation"><a href="GetProductByCategoryNameController">Sản phẩm theo loại hàng</a></span>
-                        <span class="navigation"> ${isAdmin ? `<a href='../admin/addmin.html'>Admin</a>` : ``}</span>
+                        <span class="navigation"> ${isAdmin ? `<a href='../admin/admin.html'>Admin</a>` : ``}</span>
                        
                         
                     </div>
                     <div class="col-md-3 flex-align-items-center" style="justify-content: end;">
-                        ${isLogin ? `<a href='loginPages/userInfo.jsp'><i class="fa-regular fa-user"></i></i></a>` : `<a href='signIn.jsp'>Sign in</i></a>`}
+                        ${isLogin ? `<a href='/user/login.html'><i class="fa-regular fa-user"></i></i></a>` : `<a href='/pages/users/login.html'>Sign in</i></a>`}
                     </div>
                 </div>
             </div>

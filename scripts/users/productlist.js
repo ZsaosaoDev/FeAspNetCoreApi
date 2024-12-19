@@ -97,8 +97,7 @@ const productList = () => {
                                         </div>
                                         <div class="size-list">
                                             ${color.sizeDtos.map(size => `
-                                                <div class="sizeId">${size.sizeDtoId}</div>
-                                                <button class="option-size">${size.name}</button>
+                                                <button class="option-size" data-sizeId="${size.sizeDtoId}">${size.name}</button>
                                             `).join('')}
                                         </div>
                                     </div>
@@ -338,10 +337,8 @@ const productList = () => {
             optionSize.addEventListener('click', (e) => {
                 e.preventDefault();
 
-                const productItem = optionSize.closest('.product-item');
-                const imageAndSizeContainerActive = productItem.querySelector('.imageAndSize-container.active');
-                const sizeId = imageAndSizeContainerActive.querySelector('.sizeId').textContent; // save server
-
+                const sizeId = optionSize.getAttribute('data-sizeId');
+                console.log(sizeId);
 
                 fetch('https://localhost:7284/SaveToBuyLater', {
                     method: 'POST',
@@ -389,7 +386,7 @@ const productList = () => {
 
                 const price = productItem.querySelector('.price').textContent; // pop up price
 
-                const sizeId = imageAndSizeContainerActive.querySelector('.sizeId').textContent; // save server
+
 
 
                 popUp(image.src, nameProduct, colorName, optionSize.textContent, price);
