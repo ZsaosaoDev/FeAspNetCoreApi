@@ -233,6 +233,10 @@
     width: 100%;
 }
 
+.addToCard:hover {
+    opacity: 0.8;
+}
+
 .policy {
     font-size: 12px;
 }

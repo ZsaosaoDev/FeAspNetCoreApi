@@ -10,15 +10,15 @@ document.getElementById('addColor').addEventListener('click', () => {
 
         <div class="sizes">
             <h3>Sizes</h3>
-            <button type="button" class="addSize">Add Size</button>
+            <button class="addSize btn btn-primary">Add Size</button>
         </div>
 
         <div class="images">
             <h3>Images</h3>
-            <button type="button" class="addImage">Add Image</button>
+            <button class="addImage btn btn-primary">Add Image</button>
             <input type="file" class="imageFile" accept="image/*" multiple>
         </div>
-        <button type="button" class="removeColor">Remove Color</button>
+        <button class="removeColor btn btn-danger">Remove Color</button>
     `;
 
     // Add to colors section
@@ -41,7 +41,7 @@ function setupEventListenersForColor(colorGroup) {
             <label>Stock:</label>
             <input type="number" class="stock" required>
 
-            <button type="button" class="removeSize">Remove Size</button>
+            <button class="removeSize btn btn-danger">Remove Size</button>
         `;
         colorGroup.querySelector('.sizes').appendChild(sizeGroup);
 
