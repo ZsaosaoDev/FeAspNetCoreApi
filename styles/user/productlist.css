@@ -290,3 +290,9 @@
     margin-left: 5px;
     color: #c8c8c8;
 }
+
+.addQuick {
+    font-size: 16px;
+    font-weight: 700;
+    padding: 5px 0;
+}

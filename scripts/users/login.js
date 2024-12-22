@@ -65,12 +65,7 @@ const login = () => {
     async function handleSuccess(result) {
         localStorage.setItem("role", result); // Store the role in localStorage
         localStorage.setItem("isLogin", true);
-        window.location.href = "productlist.html";
-
-
-
-
-
+        window.location.href = "index.html";
 
     }
     // Display error messages

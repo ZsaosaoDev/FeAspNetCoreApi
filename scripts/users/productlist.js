@@ -1,4 +1,4 @@
-import { popUp } from "../service.js";
+import { popUp, checkLogin, popUpError, refreshToken } from "../service.js";
 const productList = () => {
     async function fetchProductDetails() {
         // Lấy URL hiện tại
@@ -34,8 +34,10 @@ const productList = () => {
                 generatePagination(page);
                 colorChange();
                 size();
-                showPopUp();
-                toBuyLater();
+                preventDefault();
+                if (checkLogin()) {
+                    toBuyLater();
+                }
 
 
             } else {
@@ -96,6 +98,7 @@ const productList = () => {
                                                 `}
                                         </div>
                                         <div class="size-list">
+                                            <div class="addQuick">Thêm nhanh vào giỏ hàng</div>
                                             ${color.sizeDtos.map(size => `
                                                 <button class="option-size" data-sizeId="${size.sizeDtoId}">${size.name}</button>
                                             `).join('')}
@@ -329,75 +332,79 @@ const productList = () => {
     }
 
     const toBuyLater = () => {
-
         const optionSizes = document.querySelectorAll('.option-size');
 
         optionSizes.forEach((optionSize) => {
-
-            optionSize.addEventListener('click', (e) => {
-                e.preventDefault();
-
+            optionSize.addEventListener('click', async (e) => {
                 const sizeId = optionSize.getAttribute('data-sizeId');
                 console.log(sizeId);
 
-                fetch('https://localhost:7284/SaveToBuyLater', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    credentials: 'include',
-                    body: JSON.stringify(parseInt(sizeId)),
-                })
-                    .then(response => {
-
-                        if (!response.ok) {
-                            throw new Error('Failed to add to buy later.');
-                        }
-                        return response.json();
+                try {
+                    const response = await fetch('https://localhost:7284/api/SaveToBuyLater', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        credentials: 'include', // Ensure cookies are sent
+                        body: JSON.stringify(parseInt(sizeId)), // Ensure sizeId is sent as a number
                     });
 
+                    if (response.status === 401) {
+                        const success = await refreshToken();
+                        if (success) {
+                            toBuyLater();
+                        } else {
+                            popUpError('Please log in to add to Buy Later.');
+                        }
+                    }
+                    const data = await response.json(); // Parse the response JSON
+
+                    if (response.ok) {
+                        // If the request is successful, show the success popup
+                        showPopUp(optionSize);
+                    } else {
+                        // If the request failed, show the error popup
+                        popUpError(data.message || 'An unexpected error occurred.');
+                    }
+                } catch (error) {
+                    // Catch any unexpected errors
+                    console.error('An unexpected error occurred:', error);
+                    popUpError('An unexpected error occurred. Please try again.');
+                }
             });
-
         });
-
     };
 
 
-    const showPopUp = () => {
+    const preventDefault = (e) => {
         const optionSizes = document.querySelectorAll('.option-size');
-
-
         optionSizes.forEach((optionSize) => {
-
             optionSize.addEventListener('click', (e) => {
                 e.preventDefault();
-
-                const productItem = optionSize.closest('.product-item');
-
-                const nameProduct = productItem.querySelector('.name-product').textContent; // pop up name
-
-                const imageAndSizeContainerActive = productItem.querySelector('.imageAndSize-container.active');
-
-                const image = imageAndSizeContainerActive.querySelector('.image-1'); // pop up image
-
-                const colorItemActive = productItem.querySelector('.color-item.active');
-
-                const colorName = colorItemActive.querySelector('.color-name').textContent; // pop up color name
-
-                const price = productItem.querySelector('.price').textContent; // pop up price
-
-
-
-
-                popUp(image.src, nameProduct, colorName, optionSize.textContent, price);
-
             });
-
-
+        }
+        );
+        const colorItems = document.querySelectorAll('.color-item');
+        colorItems.forEach((colorItem) => {
+            colorItem.addEventListener('click', (e) => {
+                e.preventDefault();
+            });
         });
     }
 
 
+
+    const showPopUp = (optionSize) => {
+        const productItem = optionSize.closest('.product-item');
+        const nameProduct = productItem.querySelector('.name-product').textContent; // pop up name
+        const imageAndSizeContainerActive = productItem.querySelector('.imageAndSize-container.active');
+        const image = imageAndSizeContainerActive.querySelector('.image-1'); // pop up image
+        const colorItemActive = productItem.querySelector('.color-item.active');
+        const colorName = colorItemActive.querySelector('.color-name').textContent; // pop up color name
+        const price = productItem.querySelector('.price').textContent; // pop up price
+        popUp(image.src, nameProduct, colorName, optionSize.textContent, price);
+
+    }
 
 
 
