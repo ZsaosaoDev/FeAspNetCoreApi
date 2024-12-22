@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh Toán</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            color: #000;
+        }
+        main {
+            max-width: 600px;
+            margin: 50px auto; /* Căn giữa trang */
+            padding: 20px;
+        }
+        h1 {
+            font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif;
+            font-size: 40px;
+            font-weight: 600;
+            letter-spacing: 0;
+            line-height: 1.1;
+        }
+        h2 {
+            font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif;
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: .009em;
+            line-height: 1.1666666667;
+        }
+        section {
+            display: flex;
+            flex-direction: column; /* Đặt các payment-option thành cột */
+            gap: 15px; /* Khoảng cách giữa các ô */
+        }
+        .payment-option {
+            border: 1px solid #000;
+            border-radius: 8px;
+            padding: 15px;
+            font-size: 18px; /* Đặt kích thước chữ là 18px */
+            font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif; /* Thiết lập font */
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, border-color 0.3s ease-in-out; /* Thêm hiệu ứng chuyển tiếp cho border */
+            flex: 1; /* Đảm bảo các ô có chiều cao đều nhau */
+        }
+        .payment-option:first-child {
+            height: 150%; /* Tăng chiều cao của ô thẻ tín dụng lên 1.5 lần */
+        }
+        .payment-option:hover {
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .payment-option span {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+        .payment-option.selected {
+            border: 2px solid #2c90b1; /* Viền xanh nhạt khi chọn */
+        }
+        .payment-options-list {
+            display: flex;
+            flex-direction: column;
+            margin-top: 10px;
+            gap: 10px;
+            overflow: hidden; /* Ẩn các phần vượt quá khi chưa được mở */
+            max-height: 0; /* Ẩn hoàn toàn danh sách */
+            transition: max-height 0.5s ease-out; /* Thêm hiệu ứng trượt */
+        }
+        .payment-options-list.show {
+            max-height: 500px; /* Mở rộng danh sách */
+        }
+        .payment-option-item {
+            width: 90%; /* Thu nhỏ chiều ngang của các option */
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            background-color: #f9f9f9;
+            transition: background-color 0.3s ease, border-color 0.3s ease; /* Thêm hiệu ứng viền khi chọn */
+            margin: 0 auto; /* Căn giữa các ô */
+            display: flex;
+            align-items: center; /* Căn giữa logo và tên */
+            gap: 10px; /* Khoảng cách giữa logo và tên */
+            justify-content: space-between; /* Đưa logo sang bên phải */
+        }
+        .payment-option-item img {
+            width: 30px; /* Kích thước logo */
+            height: auto;
+        }
+        .payment-option-item:hover {
+            background-color: #e0e0e0;
+        }
+        .payment-option-item.selected {
+            border: 2px solid #2c90b1; /* Viền xanh nhạt khi chọn */
+        }
+
+        /* Thêm hiệu ứng chuyển động cho dòng text */
+        .note {
+            font-size: 14px;
+            color: #333;
+            text-align: center; /* Căn giữa */
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%); /* Căn giữa màn hình */
+            white-space: nowrap; /* Ngừng gói dòng chữ */
+            overflow: hidden; /* Ẩn phần ngoài khung */
+            width: 100%; /* Đảm bảo chiều rộng toàn bộ màn hình */
+        }
+
+        /* Tạo hiệu ứng chạy chữ */
+        .note span {
+            display: inline-block;
+            animation: scrollText 10s linear infinite; /* Thêm hiệu ứng chạy chữ */
+        }
+
+        @keyframes scrollText {
+            0% {
+                transform: translateX(100%); /* Bắt đầu từ bên phải */
+            }
+            100% {
+                transform: translateX(-100%); /* Chạy hết sang bên trái */
+            }
+        }
+
+        /* Định dạng nút xác nhận */
+        .confirm-button {
+            background-color: #2c90b1; /* Màu nền xanh */
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            width: 100%;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .confirm-button:hover {
+            background-color: #1e6f82; /* Màu nền tối hơn khi hover */
+        }
+
+        /* Đảm bảo note không bị trùng với nút xác nhận */
+        .note-wrapper {
+            margin-top: 20px; /* Thêm khoảng cách giữa nút xác nhận và dòng chữ */
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Bạn muốn thanh toán như thế nào?</h1>
+        <section>
+            <h2>Thanh toán toàn bộ</h2>
+            <div class="payment-option" id="creditCardOption">
+                <div>Thẻ Tín Dụng hoặc Thẻ Ghi Nợ</div>
+                <span>Visa, Mastercard, AMEX, JCB</span>
+            </div>
+            <div class="payment-option" id="momoOption">
+                <div>Ví Điện Tử MoMo</div>
+            </div>
+            <div class="payment-option" id="atmOption">
+                <div>ATM</div>
+            </div>
+
+            <!-- Dropdown list for credit card options -->
+            <div class="payment-options-list" id="creditCardOptions">
+                <div class="payment-option-item">
+                    Visa
+                    <img src="/assets/images/defaults/visa.png" alt="Visa Logo">
+                </div>
+                <div class="payment-option-item">
+                    Mastercard
+                    <img src="/assets/images/defaults/mastercard.png" alt="Mastercard Logo">
+                </div>
+                <div class="payment-option-item">
+                    AMEX
+                    <img src="/assets/images/defaults/amex.webp" alt="AMEX Logo">
+                </div>
+                <div class="payment-option-item">
+                    JCB
+                    <img src="/assets/images/defaults/jcb.jpeg" alt="JCB Logo">
+                </div>
+            </div>
+        </section>
+        <!-- Nút xác nhận -->
+        <button class="confirm-button" id="confirmButton">Xác nhận thanh toán</button>
+
+        <!-- Dòng chữ chạy dưới nút xác nhận -->
+        <div class="note-wrapper">
+            <div class="note">
+                <span>Bạn sẽ thanh toán sau khi kiểm tra đơn hàng và đặt.</span>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Get the elements for credit card option and its dropdown list
+        const creditCardOption = document.getElementById('creditCardOption');
+        const creditCardOptions = document.getElementById('creditCardOptions');
+        
+        const momoOption = document.getElementById('momoOption');
+        const atmOption = document.getElementById('atmOption');
+
+        // Add event listener to the credit card option
+        creditCardOption.addEventListener('click', () => {
+            // Toggle the visibility of the credit card options with sliding effect
+            creditCardOptions.classList.toggle('show');
+        });
+
+        // Add event listeners to MoMo and ATM options to close the credit card options
+        momoOption.addEventListener('click', () => {
+            // Hide the credit card options if MoMo is clicked
+            creditCardOptions.classList.remove('show');
+        });
+
+        atmOption.addEventListener('click', () => {
+            // Hide the credit card options if ATM is clicked
+            creditCardOptions.classList.remove('show');
+        });
+
+        // Get all other payment options to remove the 'selected' border when clicked
+        const paymentOptions = document.querySelectorAll('.payment-option');
+
+        // Add click event listener to each payment option
+        paymentOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                // Remove 'selected' class from all options
+                paymentOptions.forEach(option => option.classList.remove('selected'));
+                // Add 'selected' class to the clicked option
+                option.classList.add('selected');
+            });
+        });
+
+        // Get all payment option items in the dropdown
+        const paymentOptionItems = document.querySelectorAll('.payment-option-item');
+
+        // Add click event listener to each payment option item
+        paymentOptionItems.forEach(item => {
+            item.addEventListener('click', () => {
+                // Remove 'selected' class from all payment option items
+                paymentOptionItems.forEach(item => item.classList.remove('selected'));
+                // Add 'selected' class to the clicked item
+                item.classList.add('selected');
+            });
+        });
+
+        // Get the confirm button and add click event listener
+        const confirmButton = document.getElementById('confirmButton');
+        confirmButton.addEventListener('click', () => {
+            alert('Thanh toán đã được xác nhận!');
+        });
+    </script>
+</body>
+</html>
