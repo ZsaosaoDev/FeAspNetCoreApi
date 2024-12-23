@@ -1,0 +1,232 @@
+
+h5 {
+    text-align: center;
+}
+.under-navigation{
+    margin-top: 30px;
+    border: 1px solid #ccc;  /* Ví dụ: viền mỏng màu xám */
+    justify-content: center; /* Căn giữa theo chiều ngang */
+
+}
+
+.status-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Tăng khoảng cách giữa các thẻ */
+    flex-wrap: nowrap; /* Ngăn không cho các thẻ xuống dòng */
+    padding: 10px 20px; /* Thêm khoảng cách xung quanh các thẻ */
+    max-width: 100%; /* Giới hạn tối đa */
+    margin: 0 auto; /* Căn giữa */
+}
+
+
+.status-tab {
+
+    font-size: 18px;
+    color: #000;
+    text-decoration: none; /* Không có gạch dưới mặc định */
+    position: relative;
+    white-space: nowrap; /* Ngăn không cho các thẻ bị ngắt dòng */
+    margin: 0; /* Loại bỏ margin mặc định nếu có */
+}
+
+.status-tab:hover {
+    color: #007BFF; /* Thay đổi màu chữ khi hover */
+}
+
+.status-tab.active {
+    color: #FF5733; /* Màu chữ khi được chọn */
+    font-weight: bold;
+    text-decoration: underline; /* Thêm gạch dưới cho phần active */
+}
+
+.status-tab .badge {
+    font-size: 14px;
+    background-color: #FF5733; /* Màu đỏ cho badge */
+    color: white;
+    margin-left: 5px;
+}
+
+.status-tab:hover .badge {
+    background-color: #FF5733; /* Màu đỏ cho badge khi hover */
+}
+
+
+
+#supportForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+
+.login-container {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Input container styling */
+.input-container {
+    width: 100%;
+    max-width: 900px;
+    position: relative;
+    margin: 0 auto 20px auto;
+    padding: 5px 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+}
+
+#inputName i {
+    position: absolute;
+    padding-right: 20px;
+    left: 10px;
+    color: #999;
+    font-size: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.floating-input {
+    width: 100%;
+    padding: 12px 10px 12px 40px;
+    border: none;
+    font-size: 16px;
+    color: #333;
+    background: transparent;
+    outline: none;
+    line-height: 1.5;
+}
+
+.floating-label {
+    position: absolute;
+    top: 50%;
+    left: 50px;
+    color: #86868b;
+    font-size: 16px;
+    transition: 0.3s ease;
+    pointer-events: none;
+    transform: translateY(-50%);
+}
+
+.floating-input:focus ~ .floating-label,
+.floating-input:not(:placeholder-shown) ~ .floating-label {
+    top: 8px;
+    font-size: 13px;
+    color: #007bff;
+}
+/* Responsive cho màn hình nhỏ */
+@media (max-width: 768px) {
+    .status-tabs {
+        flex-wrap: wrap; /* Cho phép các thẻ xuống dòng */
+        gap: 10px; /* Giảm khoảng cách giữa các thẻ */
+        padding: 10px; /* Giảm padding */
+    }
+
+    .status-tab {
+        font-size: 14px; /* Giảm kích thước chữ */
+        padding: 5px; /* Giảm padding xung quanh */
+    }
+}
+
+/* Responsive cho màn hình rất nhỏ */
+@media (max-width: 480px) {
+    .status-tabs {
+        flex-direction: column; /* Sắp xếp các thẻ theo chiều dọc */
+        gap: 5px; /* Giảm khoảng cách giữa các thẻ */
+        padding: 5px; /* Giảm thêm padding */
+    }
+
+    .status-tab {
+        font-size: 12px; /* Giảm kích thước chữ hơn nữa */
+        text-align: center; /* Căn giữa nội dung */
+        padding: 5px 0; /* Giảm padding */
+    }
+}
+/* Đảm bảo cả hai phần tử có cùng kích thước */
+.shopify-icon {
+    font-size: 50px;
+    width: 50px; /* Đặt chiều rộng cho phần tử i */
+    height: 50px; /* Đặt chiều cao cho phần tử i */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto; /* Căn giữa */
+}
+.shopify-img {
+    font-size: 100px;
+    width: 130px; /* Đặt chiều rộng cho phần tử i */
+    height: 100px; /* Đặt chiều cao cho phần tử i */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto; /* Căn giữa */
+}
+
+
+
+.shopify-icon:hover {
+    cursor: pointer;
+    transform: scale(1.1); /* Tạo hiệu ứng phóng to khi hover */
+    transition: transform 0.3s ease;
+}
+
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.lightbox-content {
+    background: #fff;
+    padding: 30px; /* Tăng hoặc giảm khoảng cách bên trong */
+    border-radius: 12px; /* Bo góc */
+    width: 80%; /* Chiều rộng mặc định */
+    max-width: 1000px; /* Chiều rộng tối đa */
+    height: auto; /* Đặt chiều cao tự động */
+    max-height: 90%; /* Chiều cao tối đa là 90% màn hình */
+    overflow-y: auto; /* Thêm thanh cuộn nếu nội dung vượt quá chiều cao */
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+.lightbox-content h2 {
+    margin-bottom: 20px;
+}
+
+.lightbox-content ul {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+}
+
+.lightbox-content li {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    color: #aaa;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #000;
+}
