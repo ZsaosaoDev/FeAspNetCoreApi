@@ -117,22 +117,26 @@ let isLogin = localStorage.getItem('isLogin') === "true";
 
 const renderNavigation = () => {
     document.querySelector('nav').innerHTML = `
-        <div id="shapeHoldPosition"> 
+        <div id="shapeHoldPosition">
         <div id="navigation" class="container-fluid main-bg-color">
             <div class="container">
                 <div style="font-size: 20px;" class="row">
                     <div class="col-md-9 flex-align-items-center dropdown">
-                        <span class="navigation"><a href="index.html"><img style="width: 20px;" src="../../assets/images/logo/logo.svg" alt="logo"></a></span>
+                        <span class="navigation"><a href="index.html"><img style="width: 20px;"
+                                    src="../../assets/images/logo/logo.svg" alt="logo"></a></span>
                         <span class="navigation" id="shop"><a href="index.jsp">Cửa hàng</a></span>
                         <span class="navigation" id="shoe"><a href="shoes.html">Giày</a></span>
-                        <span class="navigation" id="sandal"><a href="#">Dép</a></span> 
+                        <span class="navigation" id="sandal"><a href="#">Dép</a></span>
                         <span class="navigation"><a href="../users/productlist.html">Sản phẩm Của Của Hàng</a></span>
                         <span class="navigation"> ${isAdmin ? `<a href='../admin/admin.html'>Admin</a>` : ``}</span>
-                       
-                        
+
+
                     </div>
                     <div class="col-md-3 flex-align-items-center" style="justify-content: end;">
-                        ${isLogin ? `<a href='/pages/users/buylater.html'><i class="fa-solid fa-cart-shopping"></i></i></i></a> ` : `<a href='/pages/users/login.html'>Sign in</i></a>`}
+                        ${isLogin ? `<a href='/pages/users/buylater.html'><i class="fa-solid fa-cart-shopping"></i></a> <a
+                            href='/pages/users/orderhistory.html'><i class="fa-solid fa-truck"></i></a> <a
+                            href='/pages/users/info.html'><i class="fa-solid fa-user"></i></a>` : `<a
+                            href='/pages/users/login.html'>Sign in</i></a> `}
                     </div>
                 </div>
             </div>

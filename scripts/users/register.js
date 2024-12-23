@@ -47,6 +47,7 @@ const register = () => {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                 },
+                credentials: "include", // Include cookies if any
                 body: JSON.stringify(data),
             });
 
@@ -72,7 +73,7 @@ const register = () => {
         localStorage.setItem("role", result);
         localStorage.setItem("isLogin", true);
 
-        // window.location.href = "index.html";
+        window.location.href = "index.html";
     }
 
     // Display error messages
