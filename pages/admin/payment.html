@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,11 +13,14 @@
             background-color: #fff;
             color: #000;
         }
+
         main {
             max-width: 600px;
-            margin: 50px auto; /* Căn giữa trang */
+            margin: 50px auto;
+            /* Căn giữa trang */
             padding: 20px;
         }
+
         h1 {
             font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif;
             font-size: 40px;
@@ -24,6 +28,7 @@
             letter-spacing: 0;
             line-height: 1.1;
         }
+
         h2 {
             font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif;
             font-size: 24px;
@@ -31,108 +36,150 @@
             letter-spacing: .009em;
             line-height: 1.1666666667;
         }
+
         section {
             display: flex;
-            flex-direction: column; /* Đặt các payment-option thành cột */
-            gap: 15px; /* Khoảng cách giữa các ô */
+            flex-direction: column;
+            /* Đặt các payment-option thành cột */
+            gap: 15px;
+            /* Khoảng cách giữa các ô */
         }
+
         .payment-option {
             border: 1px solid #000;
             border-radius: 8px;
             padding: 15px;
-            font-size: 18px; /* Đặt kích thước chữ là 18px */
-            font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif; /* Thiết lập font */
+            font-size: 18px;
+            /* Đặt kích thước chữ là 18px */
+            font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif;
+            /* Thiết lập font */
             display: flex;
             flex-direction: column;
             cursor: pointer;
-            transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, border-color 0.3s ease-in-out; /* Thêm hiệu ứng chuyển tiếp cho border */
-            flex: 1; /* Đảm bảo các ô có chiều cao đều nhau */
+            transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, border-color 0.3s ease-in-out;
+            /* Thêm hiệu ứng chuyển tiếp cho border */
+            flex: 1;
+            /* Đảm bảo các ô có chiều cao đều nhau */
         }
+
         .payment-option:first-child {
-            height: 150%; /* Tăng chiều cao của ô thẻ tín dụng lên 1.5 lần */
+            height: 150%;
+            /* Tăng chiều cao của ô thẻ tín dụng lên 1.5 lần */
         }
+
         .payment-option:hover {
             background-color: #f9f9f9;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
+
         .payment-option span {
             font-size: 14px;
             color: #666;
             margin-top: 5px;
         }
+
         .payment-option.selected {
-            border: 2px solid #2c90b1; /* Viền xanh nhạt khi chọn */
+            border: 2px solid #2c90b1;
+            /* Viền xanh nhạt khi chọn */
         }
+
         .payment-options-list {
             display: flex;
             flex-direction: column;
             margin-top: 10px;
             gap: 10px;
-            overflow: hidden; /* Ẩn các phần vượt quá khi chưa được mở */
-            max-height: 0; /* Ẩn hoàn toàn danh sách */
-            transition: max-height 0.5s ease-out; /* Thêm hiệu ứng trượt */
+            overflow: hidden;
+            /* Ẩn các phần vượt quá khi chưa được mở */
+            max-height: 0;
+            /* Ẩn hoàn toàn danh sách */
+            transition: max-height 0.5s ease-out;
+            /* Thêm hiệu ứng trượt */
         }
+
         .payment-options-list.show {
-            max-height: 500px; /* Mở rộng danh sách */
+            max-height: 500px;
+            /* Mở rộng danh sách */
         }
+
         .payment-option-item {
-            width: 90%; /* Thu nhỏ chiều ngang của các option */
+            width: 90%;
+            /* Thu nhỏ chiều ngang của các option */
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
             background-color: #f9f9f9;
-            transition: background-color 0.3s ease, border-color 0.3s ease; /* Thêm hiệu ứng viền khi chọn */
-            margin: 0 auto; /* Căn giữa các ô */
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            /* Thêm hiệu ứng viền khi chọn */
+            margin: 0 auto;
+            /* Căn giữa các ô */
             display: flex;
-            align-items: center; /* Căn giữa logo và tên */
-            gap: 10px; /* Khoảng cách giữa logo và tên */
-            justify-content: space-between; /* Đưa logo sang bên phải */
+            align-items: center;
+            /* Căn giữa logo và tên */
+            gap: 10px;
+            /* Khoảng cách giữa logo và tên */
+            justify-content: space-between;
+            /* Đưa logo sang bên phải */
         }
+
         .payment-option-item img {
-            width: 30px; /* Kích thước logo */
+            width: 30px;
+            /* Kích thước logo */
             height: auto;
         }
+
         .payment-option-item:hover {
             background-color: #e0e0e0;
         }
+
         .payment-option-item.selected {
-            border: 2px solid #2c90b1; /* Viền xanh nhạt khi chọn */
+            border: 2px solid #2c90b1;
+            /* Viền xanh nhạt khi chọn */
         }
 
         /* Thêm hiệu ứng chuyển động cho dòng text */
         .note {
             font-size: 14px;
             color: #333;
-            text-align: center; /* Căn giữa */
+            text-align: center;
+            /* Căn giữa */
             position: absolute;
             bottom: 20px;
             left: 50%;
-            transform: translateX(-50%); /* Căn giữa màn hình */
-            white-space: nowrap; /* Ngừng gói dòng chữ */
-            overflow: hidden; /* Ẩn phần ngoài khung */
-            width: 100%; /* Đảm bảo chiều rộng toàn bộ màn hình */
+            transform: translateX(-50%);
+            /* Căn giữa màn hình */
+            white-space: nowrap;
+            /* Ngừng gói dòng chữ */
+            overflow: hidden;
+            /* Ẩn phần ngoài khung */
+            width: 100%;
+            /* Đảm bảo chiều rộng toàn bộ màn hình */
         }
 
         /* Tạo hiệu ứng chạy chữ */
         .note span {
             display: inline-block;
-            animation: scrollText 10s linear infinite; /* Thêm hiệu ứng chạy chữ */
+            animation: scrollText 10s linear infinite;
+            /* Thêm hiệu ứng chạy chữ */
         }
 
         @keyframes scrollText {
             0% {
-                transform: translateX(100%); /* Bắt đầu từ bên phải */
+                transform: translateX(100%);
+                /* Bắt đầu từ bên phải */
             }
+
             100% {
-                transform: translateX(-100%); /* Chạy hết sang bên trái */
+                transform: translateX(-100%);
+                /* Chạy hết sang bên trái */
             }
         }
 
         /* Định dạng nút xác nhận */
         .confirm-button {
-            background-color: #2c90b1; /* Màu nền xanh */
+            background-color: #2c90b1;
+            /* Màu nền xanh */
             color: white;
             border: none;
             padding: 15px 30px;
@@ -147,15 +194,18 @@
         }
 
         .confirm-button:hover {
-            background-color: #1e6f82; /* Màu nền tối hơn khi hover */
+            background-color: #1e6f82;
+            /* Màu nền tối hơn khi hover */
         }
 
         /* Đảm bảo note không bị trùng với nút xác nhận */
         .note-wrapper {
-            margin-top: 20px; /* Thêm khoảng cách giữa nút xác nhận và dòng chữ */
+            margin-top: 20px;
+            /* Thêm khoảng cách giữa nút xác nhận và dòng chữ */
         }
     </style>
 </head>
+
 <body>
     <main>
         <h1>Bạn muốn thanh toán như thế nào?</h1>
@@ -207,7 +257,7 @@
         // Get the elements for credit card option and its dropdown list
         const creditCardOption = document.getElementById('creditCardOption');
         const creditCardOptions = document.getElementById('creditCardOptions');
-        
+
         const momoOption = document.getElementById('momoOption');
         const atmOption = document.getElementById('atmOption');
 
@@ -261,4 +311,5 @@
         });
     </script>
 </body>
+
 </html>

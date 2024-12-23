@@ -227,11 +227,11 @@ const productDetails = () => {
     // Hàm gửi dữ liệu tới trang Pay Later
     async function addToPayLater(product) {
         const dataToSend = {
-            sizeId: selectedSize ? selectedSize.sizeDtoId : null, 
+            sizeId: selectedSize ? selectedSize.sizeDtoId : null,
             quantity: quantity
         };
         console.log(dataToSend)
-    
+
         try {
             const response = await fetch('https://localhost:7284/api/UpdateAddQuantityInBuyLater', {
                 method: 'POST',
@@ -242,7 +242,7 @@ const productDetails = () => {
                 body: JSON.stringify(dataToSend),
                 credentials: 'include', // Gửi cookie kèm theo yêu cầu
             });
-            
+
             if (response.status === 401) {
                 const success = await refreshToken();
                 if (success) {
@@ -251,14 +251,14 @@ const productDetails = () => {
                     popUpError("Please log in to update the quantity.");
                 }
             }
-                if (response.ok) {
-                    const result = await response.json();
-                    console.log('Product added to Pay Later:', result);
-                    alert('Đã thêm sản phẩm vào Pay Later!');
-                } else {
-                    console.error('Error adding product to Pay Later');
-                    alert('Thêm sản phẩm vào Pay Later thất bại');
-                }
+            if (response.ok) {
+                const result = await response.json();
+                console.log('Product added to Pay Later:', result);
+                alert('Đã thêm sản phẩm vào Pay Later!');
+            } else {
+                console.error('Error adding product to Pay Later');
+                alert('Thêm sản phẩm vào Pay Later thất bại');
+            }
         } catch (error) {
             console.error('Error:', error);
             alert('Lỗi khi thêm sản phẩm vào Pay Later: ' + error.message);
@@ -266,7 +266,7 @@ const productDetails = () => {
     }
 
     // Giảm số lượng sản phẩm
-    window.decreaseQuantity = function() {
+    window.decreaseQuantity = function () {
         if (quantity > 1) {
             quantity--;
             updateQuantityDisplay(quantity); // Cập nhật số lượng
@@ -275,7 +275,7 @@ const productDetails = () => {
     }
 
     // Tăng số lượng sản phẩm
-    window.increaseQuantity = function() {
+    window.increaseQuantity = function () {
         if (selectedSize && selectedSize.stock > quantity) {
             quantity++;
             updateQuantityDisplay(quantity); // Cập nhật số lượng
@@ -283,10 +283,10 @@ const productDetails = () => {
         } else {
             alert('Số lượng vượt quá kho hàng');
         }
-    }    
+    }
 
     // Cập nhật hiển thị số lượng
-    window.updateQuantityDisplay = function(quantity) {
+    window.updateQuantityDisplay = function (quantity) {
         document.getElementById('quantity').textContent = quantity;
     }
 
