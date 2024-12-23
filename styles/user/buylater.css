@@ -11,7 +11,7 @@
     margin-bottom: 10px;
     gap: 10px;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 2px solid #ccc;
     border-radius: 10px;
 }
 
@@ -116,4 +116,103 @@ input:focus {
     border: none;
     outline: none;
     /* Optionally removes the outline as well */
+}
+
+.sizeAndTrash {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.trash {
+    color: rgb(45, 86, 138);
+}
+
+
+
+.size-container.selected .size-block {
+
+    border: 2px solid #3be9e6;
+
+}
+
+.total-price {
+    padding: 20px 20px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #242424;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+}
+
+.total-price__header {
+    border-bottom: 1px solid #ccc;
+    padding: 30px 0;
+    color: #242424;
+
+}
+
+.total-price__header h4 {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.total-price__body__quantityAndPrice {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+
+}
+
+.total-price__body__quantity {
+    font-size: 20px;
+    font-weight: 700;
+    color: #242424;
+    gap: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.deliveryAndFee {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+/* .deliveryAndFee .optionDelivery {
+    width: 50%;
+
+} */
+
+.optionDelivery,
+.optionPayment select {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 50%;
+
+}
+
+.total-price__body__Payment {
+    margin-bottom: 10px;
+}
+
+.total-price__footer .btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: 700;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.total {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
 }
