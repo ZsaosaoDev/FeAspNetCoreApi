@@ -1,3 +1,4 @@
+
 const productDetails = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
@@ -51,8 +52,8 @@ const productDetails = () => {
         container.innerHTML = `
             <div id="productName">${product.name}</div>
     
-    ${product.discount > 0 ? `
-        <p class="original-price">$${product.price.toFixed(2)}</p>` : ''}
+            ${product.discount > 0 ? `
+            <p class="original-price">$${product.price.toFixed(2)}</p>` : ''}
             <div class="price">
                 <div class="price_sale">${product.price}&#273;</div>
                 <div class="discount">-${product.discount}%</div>
@@ -61,24 +62,22 @@ const productDetails = () => {
             <div id="selectedColorText">Màu sắc: <span> ${product.colorDtos[0]?.name || 'Chưa chọn'} </span></div>
             <div class="color-buttons-container">
                 ${product.colorDtos.map((color, index) => `
-                   <div class="color-button-item">
+                    <div class="color-button-item">
                         <button 
-                            class="btn color-btn ${index === 0 ? 'active' : ''}"
-                            style="background-color: ${color.hexCode || 'gray'}; " 
+                            class="btn color-btn ${index === 0 ? 'active' : ''}" 
+                            style="background-color: ${color.hexCode || 'gray'};" 
                             data-color-name="${color.name}" 
                             data-color-id="${color.colorDtoId}">
                         </button>
-                   </div>
+                    </div>
                 `).join('')}
             </div>
-           
     
             <div id="selectedSizeText"><span> ${product.colorDtos[0]?.sizeDtos[0] || 'Chưa chọn'} </span></div>
             <div id="sizeButtons"></div>
             <div id="thumbnailsItem"></div>
             <div class="btnIncreaseDecrease d-flex justify-content-between align-items-center">
-                <div 
-                    class="mx-auto d-flex justify-content-around align-items-center rounded-pill me-2 sl-box" 
+                <div class="mx-auto d-flex justify-content-around align-items-center rounded-pill me-2 sl-box" 
                     style="width: 100px; background-color: #ffffff; border: 1px solid black;">
                         <i class="fas fa-minus" onclick="decreaseQuantity()"></i>
                         <span id="quantity" class="fw-bold">1</span>
@@ -86,15 +85,13 @@ const productDetails = () => {
                 </div>
     
                 <div style="flex: 1;" class="col-auto">
-                <button
-                    class="addToCard mx-auto d-flex justify-content-center align-items-center rounded-pill order-button cart-box popup">
+                    <button
+                        class="addToCard mx-auto d-flex justify-content-center align-items-center rounded-pill order-button cart-box popup">
                         <i class="fa-solid fa-cart-shopping mx-2"></i>
-                    <span class="fw-bold">Thêm vào giỏ hàng</span>
-                </button>
+                        <span class="fw-bold">Thêm vào giỏ hàng</span>
+                    </button>
+                </div>
             </div>
-            </div>
-           
-           
         `;
 
         const initialColor = product.colorDtos[0];
@@ -119,12 +116,19 @@ const productDetails = () => {
                 logProductDetails();
             });
         });
+
+        // Lắng nghe sự kiện nhấn nút "Thêm vào giỏ hàng"
+        const addToCartButton = document.querySelector('.addToCard');
+        addToCartButton.addEventListener('click', () => {
+            addToPayLater(product);
+        });
     }
 
+    // Cập nhật hình ảnh thumbnail của sản phẩm
     function updateThumbnails(color) {
         const thumbnailContainer = document.getElementById('thumbnailsItem');
         const imgMain = document.getElementById('img_main');
-        thumbnailContainer.innerHTML = '';  // Xóa các thumbnail cũ trước khi thêm mới
+        thumbnailContainer.innerHTML = ''; // Xóa các thumbnail cũ trước khi thêm mới
 
         if (color && color.imageDtos && color.imageDtos.length > 0) {
             const filteredImages = color.imageDtos.filter(image => image.colorId === color.colorDtoId);
@@ -158,6 +162,7 @@ const productDetails = () => {
         }
     }
 
+    // Cập nhật kích cỡ
     function updateSizes(color) {
         const sizeButtonsContainer = document.getElementById('sizeButtons');
         sizeButtonsContainer.innerHTML = '';
@@ -195,6 +200,7 @@ const productDetails = () => {
         updateSizeDisplay(selectedSize ? selectedSize.name : 'Chưa chọn');
     }
 
+    // Chọn size phù hợp với màu
     function selectSizeForColor(color) {
         if (color.sizeDtos && color.sizeDtos.length > 0) {
             selectedSize = color.sizeDtos.reduce((minSize, currentSize) => {
@@ -205,36 +211,82 @@ const productDetails = () => {
         }
     }
 
+    // Cập nhật màu sắc đã chọn
     function updateColorDisplay(colorName) {
         const selectedColorText = document.getElementById('selectedColorText');
         selectedColorText.innerHTML = `Màu sắc:<span> ${colorName}</span>`;
         quantity = 1;
     }
 
+    // Cập nhật kích cỡ đã chọn
     function updateSizeDisplay(sizeName) {
         const selectedSizeText = document.getElementById('selectedSizeText');
         selectedSizeText.innerHTML = `Kích thướt: <span>${sizeName}</span>`;
     }
 
-    function decreaseQuantity() {
+    // Hàm gửi dữ liệu tới trang Pay Later
+    async function addToPayLater(product) {
+        const dataToSend = {
+            sizeId: selectedSize ? selectedSize.sizeDtoId : null, 
+            quantity: quantity
+        };
+        console.log(dataToSend)
+    
+        try {
+            const response = await fetch('https://localhost:7284/api/UpdateAddQuantityInBuyLater', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'Application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(dataToSend),
+                credentials: 'include', // Gửi cookie kèm theo yêu cầu
+            });
+            
+            if (response.status === 401) {
+                const success = await refreshToken();
+                if (success) {
+                    addToPayLater(product);
+                } else {
+                    popUpError("Please log in to update the quantity.");
+                }
+            }
+                if (response.ok) {
+                    const result = await response.json();
+                    console.log('Product added to Pay Later:', result);
+                    alert('Đã thêm sản phẩm vào Pay Later!');
+                } else {
+                    console.error('Error adding product to Pay Later');
+                    alert('Thêm sản phẩm vào Pay Later thất bại');
+                }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Lỗi khi thêm sản phẩm vào Pay Later: ' + error.message);
+        }
+    }
+
+    // Giảm số lượng sản phẩm
+    window.decreaseQuantity = function() {
         if (quantity > 1) {
             quantity--;
-            updateQuantityDisplay(quantity);
+            updateQuantityDisplay(quantity); // Cập nhật số lượng
             logProductDetails();
         }
     }
 
-    function increaseQuantity() {
+    // Tăng số lượng sản phẩm
+    window.increaseQuantity = function() {
         if (selectedSize && selectedSize.stock > quantity) {
             quantity++;
-            updateQuantityDisplay(quantity);
+            updateQuantityDisplay(quantity); // Cập nhật số lượng
             logProductDetails();
         } else {
             alert('Số lượng vượt quá kho hàng');
         }
-    }
+    }    
 
-    function updateQuantityDisplay(quantity) {
+    // Cập nhật hiển thị số lượng
+    window.updateQuantityDisplay = function(quantity) {
         document.getElementById('quantity').textContent = quantity;
     }
 

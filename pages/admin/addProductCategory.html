@@ -6,71 +6,160 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload Product Category</title>
     <style>
-        /* CSS cơ bản */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: #f4f4f7; /* Light gray background */
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            overflow: hidden;
         }
 
         .form-container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Soft shadow */
             width: 100%;
-            max-width: 400px;
+            max-width: 450px;
+            transform: translateY(-50px);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        /* Animation for form appearance */
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         h2 {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            color: #333;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            animation: slideIn 1s ease-out;
+        }
+
+        /* Animation for heading */
+        @keyframes slideIn {
+            0% {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         label {
             display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
+            margin-bottom: 12px;
+            font-weight: 500;
+            font-size: 1.1rem;
+            color: #495057;
         }
 
         input,
         textarea {
             width: 100%;
-            padding: 8px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            padding: 14px;
+            margin-bottom: 20px;
+            border: 2px solid #ccc;
+            border-radius: 12px;
+            font-size: 1rem;
             box-sizing: border-box;
+            transition: all 0.3s ease;
+            background-color: #f9f9f9; /* Light background for input */
         }
 
+        input:focus,
+        textarea:focus {
+            border-color: #007bff;
+            background-color: #e9f5ff;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+            outline: none;
+            transform: scale(1.02);
+        }
+
+        /* Button styles */
         button {
             width: 100%;
-            padding: 10px;
-            background-color: #28a745;
-            color: #fff;
+            padding: 14px;
+            background-color: #007bff;
+            color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 12px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.1);
         }
 
         button:hover {
-            background-color: #218838;
+            background-color: #0056b3;
+            transform: translateY(-3px);
         }
 
+        button:active {
+            transform: translateY(1px);
+        }
+
+        /* Success and error message styles */
         .message {
-            margin-top: 15px;
+            margin-top: 20px;
             text-align: center;
+            font-size: 1.1rem;
             color: green;
+            animation: fadeIn 0.5s ease-in-out;
         }
 
         .error {
             color: red;
+            font-weight: bold;
+        }
+
+        /* Animation for messages */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 20px;
+                width: 100%;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            input,
+            textarea {
+                font-size: 0.9rem;
+            }
+
+            button {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
@@ -149,5 +238,4 @@
         });
     </script>
 </body>
-
 </html>
