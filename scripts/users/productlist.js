@@ -9,13 +9,10 @@ const productList = () => {
         const pageNumber = urlParams.get('pageNumber') || 1;
         const categoryName = urlParams.get('categoryName') || '';
 
-
-
-
         let url = `https://localhost:7284/api/products/pagination?name=${keyword}&pageNumber=${pageNumber}`;
 
         if (categoryName !== '') {
-            url = `https://localhost:7284/api/productcategories/pagination?name=${categoryName}&pageNumber=${pageNumber}`;
+            url = `https://localhost:7284/api/productcategories/pagination?name=${categoryName}&pageNumber=${pageNumber}&productName=${keyword}`;
         }
         document.getElementById('loading').style.display = 'block';
 
@@ -26,7 +23,6 @@ const productList = () => {
             });
             const data = await response.json();
             const products = data?.items || [];
-            console.log(data);
 
 
             const container = document.getElementById('productDetails');
@@ -34,9 +30,10 @@ const productList = () => {
                 displayProductDetails(products);
 
                 const page = {
-                    totalPages: Math.ceil(data.totalItems / data.pageSize), // Làm tròn lên tổng số trang
-                    pageNo: data.pageNumber,   // Trang hiện tại
-                    keyword: keyword     // Từ khóa tìm kiếm (nếu có)
+                    totalPages: Math.ceil(data.totalItems / data.pageSize),
+                    pageNo: data.pageNumber,
+                    keyword: keyword,
+                    categoryName: categoryName,
                 };
 
                 generatePagination(page);
@@ -245,17 +242,17 @@ const productList = () => {
 
     function generatePagination(page) {
         const paginationList = document.getElementById('pagination-list');
-        paginationList.innerHTML = ''; // Xóa nội dung cũ
+        paginationList.innerHTML = '';
 
         const currentPage = page.pageNo;
         const totalPages = page.totalPages;
         const keyword = page.keyword || '';
+        const categoryName = page.categoryName || '';
 
-        const range = 2; // Số trang hiển thị mỗi bên
+        const range = 2;
         let startPage = currentPage - range;
         let endPage = currentPage + range;
 
-        // Điều chỉnh startPage và endPage
         if (startPage < 1) {
             endPage += 1 - startPage;
             startPage = 1;
@@ -266,70 +263,67 @@ const productList = () => {
         }
         if (startPage < 1) startPage = 1;
 
-        // Tạo nút "Previous"
         if (currentPage > 1) {
             const prev = document.createElement('li');
             prev.innerHTML = `<div >Previous</div>`;
             prev.addEventListener('click', () => {
-                updateURLAndFetch(keyword, currentPage - 1);
+                updateURLAndFetch(keyword, currentPage - 1, categoryName);
             });
             paginationList.appendChild(prev);
         }
 
-        // Tạo các số trang
         for (let i = startPage; i <= endPage; i++) {
             const pageItem = document.createElement('li');
             pageItem.innerHTML = `<div  class="${i === currentPage ? 'active' : ''}">${i}</div>`;
             pageItem.addEventListener('click', () => {
-                updateURLAndFetch(keyword, i);
+                updateURLAndFetch(keyword, i, categoryName);
             });
             paginationList.appendChild(pageItem);
         }
 
-        // Tạo nút "Next"
         if (currentPage < totalPages) {
             const next = document.createElement('li');
             next.innerHTML = `<div >Next</div>`;
             next.addEventListener('click', () => {
-                updateURLAndFetch(keyword, currentPage + 1);
+                updateURLAndFetch(keyword, currentPage + 1, categoryName);
             });
             paginationList.appendChild(next);
         }
     }
 
+
     // Cập nhật URL và gọi lại fetchProductDetails
-    function updateURLAndFetch(keyword, newPageNumber) {
+    function updateURLAndFetch(keyword, newPageNumber, categoryName) {
         const url = new URL(window.location);
         url.searchParams.set('name', keyword);
         url.searchParams.set('pageNumber', newPageNumber);
+        url.searchParams.set('categoryName', categoryName);
 
         window.location.href = url;
 
-        // Cuộn mượt về đầu trang
         window.scrollTo({ top: 0, behavior: 'smooth' });
-
     }
 
     const search = () => {
-
         const changeUrl = () => {
             const searchInput = document.getElementById('searchInput');
             const keyword = searchInput.value.trim();
-            updateURLAndFetch(keyword, 1);
+            const urlParams = new URLSearchParams(window.location.search);
+            const categoryName = urlParams.get('categoryName') || '';
+            updateURLAndFetch(keyword, 1, categoryName);
+        };
 
-
-        }
         const searchBtn = document.getElementById('searchBtn');
         searchBtn.addEventListener('click', () => {
             changeUrl();
         });
 
         searchInput.addEventListener('keydown', (event) => {
-            if (event.key === 'Enter') { // Check if Enter key is pressed
+            if (event.key === 'Enter') {
                 changeUrl();
             }
         });
-    }
+    };
 
 
     const getSearchInputValue = () => {
