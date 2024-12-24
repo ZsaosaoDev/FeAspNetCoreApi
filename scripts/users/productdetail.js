@@ -1,4 +1,4 @@
-
+import { popUpError, refreshToken, popUp } from "../service.js";
 const productDetails = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
@@ -38,7 +38,7 @@ const productDetails = () => {
                 selectSizeForColor(selectedColor);
 
                 displayProductDetails(product);
-                logProductDetails();
+
             } else {
                 document.getElementById('productDetails').innerHTML = '<p>No product details available.</p>';
             }
@@ -113,7 +113,7 @@ const productDetails = () => {
                 colorButtons.forEach(btn => btn.classList.remove('active'));
                 event.target.classList.add('active');
 
-                logProductDetails();
+
             });
         });
 
@@ -187,7 +187,7 @@ const productDetails = () => {
                     sizeButtons.forEach(btn => btn.classList.remove('active'));
                     event.target.classList.add('active');
 
-                    logProductDetails();
+
                 });
 
                 sizeButtonsContainer.appendChild(sizeButton);
@@ -230,7 +230,6 @@ const productDetails = () => {
             sizeId: selectedSize ? selectedSize.sizeDtoId : null,
             quantity: quantity
         };
-        console.log(dataToSend)
 
         try {
             const response = await fetch('https://localhost:7284/api/UpdateAddQuantityInBuyLater', {
@@ -245,19 +244,25 @@ const productDetails = () => {
 
             if (response.status === 401) {
                 const success = await refreshToken();
-                if (success) {
-                    addToPayLater(product);
-                } else {
-                    popUpError("Please log in to update the quantity.");
-                }
+                if (success) return addToPayLater(product);
+                return popUpError("Please login.");
             }
             if (response.ok) {
                 const result = await response.json();
-                console.log('Product added to Pay Later:', result);
-                alert('Đã thêm sản phẩm vào Pay Later!');
+
+                const selectedColorText = document.querySelector('#selectedColorText span');
+                const selectedSizeText = document.querySelector('#selectedSizeText span');
+                const quantityText = document.getElementById('quantity');
+                const img = document.getElementById('img_main');
+                const price = document.querySelector('.price_sale');
+
+
+                popUp(img.src, product.name, selectedColorText.textContent, selectedSizeText.textContent, quantityText.textContent, price.textContent);
+
+
             } else {
-                console.error('Error adding product to Pay Later');
-                alert('Thêm sản phẩm vào Pay Later thất bại');
+                popUpError('Error when adding product to Pay Later: ' + response.statusText);
+
             }
         } catch (error) {
             console.error('Error:', error);
@@ -270,7 +275,7 @@ const productDetails = () => {
         if (quantity > 1) {
             quantity--;
             updateQuantityDisplay(quantity); // Cập nhật số lượng
-            logProductDetails();
+            l
         }
     }
 
@@ -279,7 +284,7 @@ const productDetails = () => {
         if (selectedSize && selectedSize.stock > quantity) {
             quantity++;
             updateQuantityDisplay(quantity); // Cập nhật số lượng
-            logProductDetails();
+
         } else {
             alert('Số lượng vượt quá kho hàng');
         }

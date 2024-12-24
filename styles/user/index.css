@@ -1,0 +1,203 @@
+.slider .form .item {
+    width: 200px;
+    height: 300px;
+    display: inline-block;
+    margin-right: 20px;
+
+}
+
+.slider .form .item.support {
+    box-shadow: 0px 0px 10px 1px #c3c2c2;
+    border-radius: 25px;
+    width: 400px !important;
+    height: 400px !important;
+    border-radius: 10px;
+}
+
+.slider .form .item .content {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+
+
+.slider .form .item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+.form {
+    position: relative;
+    transition: left 0.5s linear;
+}
+
+
+
+#btn-scroll {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#btn-scroll button {
+    position: relative;
+    background-color: #0005;
+    color: #fff;
+    border-radius: 50%;
+    border: none;
+    height: 40px;
+    width: 40px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+
+#slider .item {
+    position: absolute;
+    top: 0;
+    width: 300px;
+    height: 400px;
+    overflow: hidden;
+    transition: left 0.5s ease;
+
+}
+
+#slider img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    border-radius: 10px;
+    border: 1px solid #0005;
+}
+
+#slider {
+    position: relative;
+    overflow: hidden;
+    height: 400px;
+
+}
+
+.btnSlide {
+    position: absolute;
+    top: 50%;
+    background-color: transparent;
+    color: white;
+    cursor: pointer;
+    border: none;
+    font-size: 24px;
+}
+
+#next {
+    font-size: 20px;
+    color: black;
+    /* Đặt màu nền thành đen */
+    right: 0;
+    z-index: 10;
+}
+
+#prev {
+    font-size: 20px;
+    color: black;
+    /* Đặt màu nền thành đen */
+    left: 0;
+    z-index: 10;
+
+}
+
+#next,
+#next2 {
+    font-size: 20px;
+    color: black;
+    /* Đặt màu nền thành đen */
+    right: 0;
+}
+
+#prev,
+#prev2 {
+    font-size: 20px;
+    color: black;
+    /* Đặt màu nền thành đen */
+    left: 0;
+}
+
+/* Thêm hiệu ứng hover cho nút */
+#next:hover,
+#next2:hover,
+#prev:hover,
+#prev2:hover {
+    transform: scale(1.2);
+    /* Tăng kích thước nút */
+}
+
+/* Tạo hình tròn bao quanh nút */
+.btnSlide::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 70%;
+    width: 30px;
+    /* Kích thước hình tròn */
+    height: 30px;
+    /* Kích thước hình tròn */
+    background-color: rgba(128, 128, 128, 0.5);
+    /* Màu xám với độ trong suốt */
+    border-radius: 50%;
+    /* Hình tròn */
+    transform: translate(-50%, -50%);
+    /* Đặt hình tròn vào giữa nút */
+    z-index: -1;
+    /* Đặt hình tròn phía sau nút */
+    transition: opacity 0.3s ease;
+    /* Thêm hiệu ứng chuyển động */
+    opacity: 0;
+    /* Ẩn hình tròn ban đầu */
+}
+
+#next:hover::before,
+#next2:hover::before,
+#prev:hover::before,
+#prev2:hover::before {
+    opacity: 1;
+    /* Hiện hình tròn khi hover */
+}
+
+
+
+#best-sale {
+    display: flex;
+    align-items: center;
+
+}
+
+.best-saler-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#best-sale img {
+    width: 180px;
+    height: 120px;
+    object-fit: cover;
+}
+
+.titleHeader {
+    background: linear-gradient(to right, #0090f7, #ba62fc, #f2416b);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.titleHeaderMin {
+    background: linear-gradient(to right, #0090f7, #ba62fc, #f2416b);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+#best-sale span {
+    font-size: 20px;
+}

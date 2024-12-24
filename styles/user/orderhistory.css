@@ -1,0 +1,257 @@
+#order-history {
+    margin-top: 50px;
+    border: 1px solid #e0e0e0;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+    position: relative;
+}
+
+#order-history h1 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.order-filter {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    gap: 20px;
+}
+
+.filter-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+}
+
+.filter-option::after {
+    background-color: hsl(356.39deg 70.34% 53.73%);
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    color: hsl(355.38deg 74.29% 86.27%);
+    font-weight: 700;
+    position: absolute;
+    top: 12px;
+    right: -15px;
+}
+
+#order-list {
+    width: 100%;
+}
+
+.order-item {
+    border: 1px solid #e0e0e0;
+    border-radius: 20px;
+    margin-bottom: 15px;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+
+
+.order-id i {
+    font-size: 30px;
+    margin: 0;
+}
+
+.order-delivery,
+.order-id,
+.order-date,
+.order-status,
+.order-total {
+    display: flex;
+    margin-top: 10px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.delivery-label,
+.order-number,
+.date-label,
+.status-label,
+.total-label {
+    font-weight: bold;
+}
+
+.date-value,
+.status-value,
+.total-value {
+    color: #555;
+}
+
+
+
+
+
+
+
+
+
+
+
+#order-details {
+    background-color: #f9f9f9;
+    border-radius: inherit;
+    position: relative;
+
+}
+
+.product-details {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    width: 100%;
+    border-radius: inherit;
+    padding: 10px 20px;
+
+}
+
+.order-details_container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 70%;
+    transform: translate(-50%, -50%);
+    border-radius: 20px;
+    max-height: 700px;
+    overflow-y: scroll;
+    /* Kích hoạt cuộn dọc */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scrollbar-width: none;
+    /* Ẩn thanh cuộn trên Firefox */
+}
+
+.order-details_container::-webkit-scrollbar {
+    display: none;
+    /* Ẩn thanh cuộn trên Chrome, Safari */
+}
+
+
+/* Từng sản phẩm */
+.product-item {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    width: 100%;
+    margin-bottom: 10px;
+
+
+    opacity: 0;
+    transform: scale(0.9);
+    animation: scale-in 0.5s ease-out forwards;
+
+
+
+}
+
+
+
+/* Header sản phẩm */
+.product-header {
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
+}
+
+.product-image {
+    height: 200px;
+}
+
+/* Ảnh sản phẩm */
+.product-image img {
+    height: 100%;
+    width: 100%;
+    display: block;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Thông tin sản phẩm */
+.product-info {
+    padding: 10px 15px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.product-info p {
+    margin: 5px 0;
+}
+
+.product-info strong {
+    color: #333;
+}
+
+/* Hiển thị màu sắc */
+.product-info span {
+    border-radius: 50%;
+}
+
+/* Phần thông báo khi không có dữ liệu */
+.no-data {
+    text-align: center;
+    font-size: 16px;
+    color: #666;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin: 20px auto;
+    width: 400px;
+}
+
+/* Animation scale-in */
+@keyframes scale-in {
+    0% {
+        opacity: 0;
+        transform: scale(0.6);
+        /* Nhỏ hơn kích thước ban đầu */
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+        /* Quay về kích thước ban đầu */
+    }
+}
+
+.close-btn {
+    border: none;
+    background-color: red;
+    color: white;
+    padding: 0px 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-weight: 700;
+    font-size: 16px;
+    position: absolute;
+    top: 5px;
+    right: 20px;
+
+}

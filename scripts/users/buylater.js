@@ -326,7 +326,7 @@ async function submitOrder() {
             paymentId: paymentId,
             deliverId: deliverId
         };
-       
+
 
         // Send the POST request
         const response = await fetch("https://localhost:7284/api/Order", {

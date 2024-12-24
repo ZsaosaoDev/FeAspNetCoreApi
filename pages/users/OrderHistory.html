@@ -4,32 +4,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Management</title>
+    <title>Lịch sử đặt hàng</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <link rel="stylesheet" href="../../styles/globa.css">
+    <link rel="stylesheet" href="../../styles/components/navigation.css">
+    <link rel="stylesheet" href="../../styles/user/orderhistory.css">
 </head>
 
 <body>
-    <div id="main-container">
-        <header>
-            <h1>Order Management</h1>
-        </header>
-        <main>
-            <section id="order-history">
-                <h2>Your Orders</h2>
-                <div id="order-list" class="list-container">
-                    <!-- Order list will be dynamically rendered here -->
-                </div>
-            </section>
-            <section id="order-details">
-                <h2>Order Details</h2>
-                <div id="product-container">
-                    <!-- Order details and products will be dynamically rendered here -->
-                </div>
-            </section>
 
-            </section>
-        </main>
-    </div>
+    <header>
+        <nav></nav>
+        <div class="under-navigation">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="order-history">
+                            <h1>Lịch sử đặt hàng</h1>
+                            <div class="order-filter">
+                                <div class="filter-option" data-value="all">Tất cả</div>
+                                <div class="filter-option" data-value="pending">Chờ xác nhận</div>
+                                <div class="filter-option" data-value="confirmed">Đã xác nhận</div>
+                                <div class="filter-option" data-value="shipping">Đang giao</div>
+                                <div class="filter-option" data-value="delivered">Đã giao</div>
+                                <div class="filter-option" data-value="cancelled">Đã hủy</div>
+                            </div>
+                            <div id="order-list" class="order-list">
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="order-details_container">
+                        <div id="order-details">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </header>
+    <footer>
+    </footer>
+
+
 </body>
-<script type="module" src="../../scripts/users/OrderHistory.js"></script>
+<script type="module" src="../../scripts/users/orderhistory.js"></script>
+
+<script src="../../scripts/components/navigation.js"></script>
+<script src="../../scripts/components/footer.js"></script>
 
 </html>

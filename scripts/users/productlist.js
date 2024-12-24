@@ -7,8 +7,16 @@ const productList = () => {
         // Lấy giá trị từ URL
         const keyword = urlParams.get('name') || '';
         const pageNumber = urlParams.get('pageNumber') || 1;
+        const categoryName = urlParams.get('categoryName') || '';
 
-        const url = `https://localhost:7284/api/products/pagination?name=${keyword}&pageNumber=${pageNumber}`;
+
+
+
+        let url = `https://localhost:7284/api/products/pagination?name=${keyword}&pageNumber=${pageNumber}`;
+
+        if (categoryName !== '') {
+            url = `https://localhost:7284/api/productcategories/pagination?name=${categoryName}&pageNumber=${pageNumber}`;
+        }
         document.getElementById('loading').style.display = 'block';
 
         try {
